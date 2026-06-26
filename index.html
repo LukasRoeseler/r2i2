@@ -239,7 +239,7 @@
     <div class="section">
       <div class="section-title">Center image</div>
       <div class="upload-zone has-image" id="uploadZone">
-        <strong>pageHeaderLogoImage_en_US.png</strong>
+        <strong>r2.png</strong>
         Click or drop to replace
       </div>
       <input type="file" id="fileInput" accept="image/*" style="display:none">
@@ -2062,21 +2062,33 @@ document.getElementById('volYear').value = volYear;
 applyOrientation('portrait');
 
 (function loadDefaultLogo() {
-  let img = new Image();
-  img.crossOrigin = 'anonymous';
-  img.onload = () => {
-    uploadedImage = img;
-    uploadZone.innerHTML = '<strong>pageHeaderLogoImage_en_US.png</strong>Loaded from ejournals.uni-muenster.de — click to replace';
-    uploadZone.classList.add('has-image');
-    draw();
-  };
-  img.onerror = () => {
-    // silently fall back to drawn logo if CORS blocks the fetch
-    uploadZone.innerHTML = '<strong>Click or drop image</strong>PNG, JPG, SVG, WEBP';
-    uploadZone.classList.remove('has-image');
-    draw();
-  };
-  img.src = 'https://ejournals.uni-muenster.de/public/journals/36/pageHeaderLogoImage_en_US.png';
+  // Primary: relative path (works on GitHub Pages where index.html and r2.png
+  // live in the same repo). Fallback: raw GitHub URL. Final fallback: drawn logo.
+  const sources = [
+    'r2.png',
+    'https://raw.githubusercontent.com/LukasRoeseler/r2i2/main/r2.png'
+  ];
+  let idx = 0;
+  function tryLoad() {
+    let img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      uploadedImage = img;
+      uploadZone.innerHTML = '<strong>r2.png</strong>Default logo loaded — click to replace';
+      uploadZone.classList.add('has-image');
+      draw();
+    };
+    img.onerror = () => {
+      idx++;
+      if (idx < sources.length) { tryLoad(); return; }
+      // all sources failed — fall back to the drawn R² logo
+      uploadZone.innerHTML = '<strong>Click or drop image</strong>PNG, JPG, SVG, WEBP';
+      uploadZone.classList.remove('has-image');
+      draw();
+    };
+    img.src = sources[idx];
+  }
+  tryLoad();
 })();
 </script>
 </body>
