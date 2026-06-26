@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>R2I2 — R2 Issue Images</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111111'/%3E%3Ctext x='2' y='28' font-family='Arial Black%2C Arial%2C sans-serif' font-weight='900' font-size='26' fill='%231da7d4'%3ER%3C/text%3E%3Ctext x='13' y='17' font-family='Arial Black%2C Arial%2C sans-serif' font-weight='900' font-size='11' fill='%23ffffff'%3ER%3C/text%3E%3Ctext x='13' y='29' font-family='Arial Black%2C Arial%2C sans-serif' font-weight='900' font-size='11' fill='%231da7d4'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111'/%3E%3Cpath d='M14 12h13a11 11 0 0 1 0 22h-5l9 18h-9l-9-18V52h-8V12z' fill='%231da7d4'/%3E%3Cpath d='M22 12h13a11 11 0 0 1 0 22h-5l9 18h-9l-9-18V52h-8V12z' fill='%23fff'/%3E%3Ccircle cx='27' cy='23' r='4' fill='%23111'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111'/%3E%3Cpath d='M14 12h13a11 11 0 0 1 0 22h-5l9 18h-9l-9-18V52h-8V12z' fill='%231da7d4'/%3E%3Cpath d='M22 12h13a11 11 0 0 1 0 22h-5l9 18h-9l-9-18V52h-8V12z' fill='%23fff'/%3E%3Ccircle cx='27' cy='23' r='4' fill='%23111'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -31,17 +32,11 @@
     color: #fff;
     padding: 14px 28px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 14px;
     border-bottom: 3px solid var(--accent);
   }
-  header h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 26px;
-    letter-spacing: 0.04em;
-    color: #fff;
-  }
+  .header-left { display: flex; align-items: baseline; gap: 14px; }
   header span {
     font-size: 13px;
     color: #aaa;
@@ -230,8 +225,10 @@
 <body>
 
 <header>
-  <h1>R2I2</h1>
-  <span>R2 Issue Images — Cover Generator</span>
+  <div class="header-left">
+    <h1>R2I2</h1>
+    <span>R2 Issue Images — Cover Generator</span>
+  </div>
 </header>
 
 <div class="app">
@@ -338,8 +335,37 @@
             <option value="diamonds">Diamonds</option>
             <option value="zigzag">Zigzag stripes</option>
             <option value="grid_squares">Grid squares</option>
-            <option value="polka">Polka dots</option>
+            <option value="polka" selected>Polka dots</option>
             <option value="chevrons">Chevrons</option>
+            <option value="checker">Checkerboard</option>
+            <option value="brick">Brick / running bond</option>
+            <option value="weave">Basket weave / plaid</option>
+            <option value="plaid">Tartan plaid (diagonal)</option>
+            <option value="square_rings">Concentric squares</option>
+            <option value="sunburst">Sunburst rays</option>
+            <option value="dot_gradient">Halftone gradient</option>
+            <option value="noisegrid">Data mosaic</option>
+          </optgroup>
+          <optgroup label="Shapes &amp; motifs">
+            <option value="stars">Stars</option>
+            <option value="plus">Plus / crosses</option>
+            <option value="arrows">Arrows</option>
+            <option value="hearts">Hearts</option>
+            <option value="drops">Teardrops / petals</option>
+            <option value="pills">Capsules / pills</option>
+            <option value="scales">Fish scales / fans</option>
+            <option value="moroccan">Moroccan trellis</option>
+            <option value="rings">Scattered rings</option>
+          </optgroup>
+          <optgroup label="Organic &amp; generative">
+            <option value="spray">Confetti spray</option>
+            <option value="bubbles">Packed bubbles</option>
+            <option value="contour">Topographic contours</option>
+            <option value="flowfield">Flow field</option>
+            <option value="voronoi">Voronoi cells</option>
+            <option value="maze">Truchet maze</option>
+            <option value="truchet">Truchet arcs</option>
+            <option value="spiral_single">Logarithmic spiral</option>
           </optgroup>
           <optgroup label="Recursive / Fractal">
             <option value="rec_sierpinski">Sierpiński triangles</option>
@@ -352,6 +378,12 @@
             <option value="rec_fern">Barnsley fern cells</option>
             <option value="rec_penrose">Penrose-like tiles</option>
             <option value="rec_mondrian">Mondrian subdivisions</option>
+            <option value="rec_koch">Koch snowflakes</option>
+            <option value="rec_pythagoras">Pythagoras tree</option>
+            <option value="rec_circles">Recursive circles</option>
+            <option value="rec_dragon">Dragon curve</option>
+            <option value="rec_trisub">Triangle subdivision</option>
+            <option value="rec_radial">Radial branching</option>
           </optgroup>
         </select>
       </div>
@@ -476,7 +508,7 @@ let W = 2100, H = 2970;
 let accentColor = '#1da7d4';
 let bgMode = 'white';
 let bgCustomColor = '#ffffff';
-let patternType = 'grid_r';
+let patternType = 'polka';
 let seed = (Math.random() * 99999) | 0;
 let uploadedImage = null;
 let imagePosition = 'center';
@@ -1019,16 +1051,608 @@ function recMondrian() {
   subdivide(0,0,W,H,depth);
 }
 
+// ── ADDITIONAL GEOMETRIC / ORGANIC PATTERNS ───────────────────────────────
+function patScales() { // fish-scale / fan arcs
+  let cols=3+densityVal, chaos=chaosVal/10;
+  let r2=W/(cols*2), dx=r2*2, dy=r2;
+  let rows=Math.ceil(H/dy)+2;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols+2;c++) {
+    let i=r*cols+c;
+    let cx=c*dx+(r%2)*r2;
+    let cy=r*dy;
+    let rad=r2*(0.85+rng(seed+i*5)*0.3);
+    let off=chaos*(rng(seed+i*3)-0.5)*r2*0.4;
+    ctx.beginPath();
+    ctx.arc(cx+off,cy,rad,Math.PI,0);
+    if (rng(seed+i*11)>0.5){ctx.fillStyle=pc(i);ctx.fill();}
+    else{ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,r2*0.08);ctx.stroke();}
+  }
+}
+
+function patStars() {
+  let cols=3+densityVal, rows=Math.ceil(cols*H/W*1.2), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let cx=c*cw+cw/2+chaos*(rng(seed+i*3)-0.5)*cw*0.4;
+    let cy=r*ch+ch/2+chaos*(rng(seed+i*7)-0.5)*ch*0.4;
+    let pts=5+Math.floor(rng(seed+i*13)*3);
+    let outer=cw*(0.2+rng(seed+i*5)*0.28), inner=outer*0.45;
+    let rot=rng(seed+i*9)*Math.PI*2;
+    ctx.beginPath();
+    for (let k=0;k<pts*2;k++){
+      let ang=rot+k*Math.PI/pts;
+      let rad=k%2===0?outer:inner;
+      let x=cx+Math.cos(ang)*rad, y=cy+Math.sin(ang)*rad;
+      k===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    if (rng(seed+i*17)>0.5){ctx.fillStyle=pc(i);ctx.fill();}
+    else{ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,outer*0.08);ctx.stroke();}
+  }
+}
+
+function patPlus() { // grid of plus / cross marks
+  let cols=4+densityVal, rows=Math.ceil(cols*H/W), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let cx=c*cw+cw/2+chaos*(rng(seed+i*3)-0.5)*cw*0.3;
+    let cy=r*ch+ch/2+chaos*(rng(seed+i*7)-0.5)*ch*0.3;
+    let sz=cw*(0.2+rng(seed+i*5)*0.25);
+    let rot=chaos*(rng(seed+i*11)-0.5)*0.8;
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);
+    ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(3,sz*0.22);ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(-sz,0);ctx.lineTo(sz,0);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(0,-sz);ctx.lineTo(0,sz);ctx.stroke();
+    ctx.restore();
+  }
+}
+
+function patBrick() { // offset brick / running-bond rectangles
+  let rows=4+densityVal, chaos=chaosVal/10;
+  let ch=H/rows, bw=ch*2.4;
+  for (let r=0;r<rows;r++){
+    let cols=Math.ceil(W/bw)+2;
+    let offset=(r%2)*bw/2;
+    for (let c=-1;c<cols;c++){
+      let i=r*cols+c;
+      let x=c*bw-offset+chaos*(rng(seed+i*3)-0.5)*bw*0.06;
+      let y=r*ch;
+      let gap=ch*0.08;
+      if (rng(seed+i*11)>0.42){ctx.fillStyle=pc(i);ctx.fillRect(x+gap,y+gap,bw-gap*2,ch-gap*2);}
+      else{ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,ch*0.05);ctx.strokeRect(x+gap,y+gap,bw-gap*2,ch-gap*2);}
+    }
+  }
+}
+
+function patWeave() { // basket-weave / plaid lines
+  let count=6+densityVal*3, chaos=chaosVal/10;
+  let sp=W/count;
+  for (let i=0;i<count+2;i++){ // vertical
+    let x=i*sp+chaos*(rng(seed+i*3)-0.5)*sp*0.3;
+    let thick=sp*(0.12+rng(seed+i*5)*0.3);
+    ctx.fillStyle=pc(i);ctx.fillRect(x-thick/2,0,thick,H);
+  }
+  let countH=Math.ceil(count*H/W);
+  let spH=H/countH;
+  for (let i=0;i<countH+2;i++){ // horizontal
+    let y=i*spH+chaos*(rng(seed+i*7+99)-0.5)*spH*0.3;
+    let thick=spH*(0.12+rng(seed+i*5+99)*0.3);
+    ctx.fillStyle=pc(i+500);ctx.fillRect(0,y-thick/2,W,thick);
+  }
+}
+
+function patDrops() { // teardrops / petals radiating
+  let cols=3+densityVal, rows=Math.ceil(cols*H/W*1.1), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let cx=c*cw+cw/2+chaos*(rng(seed+i*3)-0.5)*cw*0.3;
+    let cy=r*ch+ch/2+chaos*(rng(seed+i*7)-0.5)*ch*0.3;
+    let sz=cw*(0.22+rng(seed+i*5)*0.25);
+    let rot=rng(seed+i*9)*Math.PI*2;
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);
+    ctx.beginPath();
+    ctx.moveTo(0,-sz);
+    ctx.quadraticCurveTo(sz,-sz*0.2,0,sz);
+    ctx.quadraticCurveTo(-sz,-sz*0.2,0,-sz);
+    ctx.closePath();
+    if (rng(seed+i*13)>0.5){ctx.fillStyle=pc(i);ctx.fill();}
+    else{ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,sz*0.1);ctx.stroke();}
+    ctx.restore();
+  }
+}
+
+function patSpray() { // scattered dots of varied size (stochastic confetti)
+  let n=120+densityVal*120, chaos=chaosVal/10;
+  for (let i=0;i<n;i++){
+    let x=rng(seed+i*3)*W;
+    let y=rng(seed+i*7)*H;
+    let rad=W*(0.004+rng(seed+i*5)*(0.012+chaos*0.03));
+    ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);
+    ctx.fillStyle=pc(i);ctx.fill();
+  }
+}
+
+function patRings() { // scattered open circles of varied size
+  let n=20+densityVal*14, chaos=chaosVal/10;
+  for (let i=0;i<n;i++){
+    let x=rng(seed+i*3)*W;
+    let y=rng(seed+i*7)*H;
+    let rad=W*(0.02+rng(seed+i*5)*(0.06+chaos*0.05));
+    ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);
+    ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,rad*0.12);ctx.stroke();
+  }
+}
+
+function patSquareRings() { // concentric squares from center
+  let count=4+densityVal*2, chaos=chaosVal/10;
+  let cx=W/2, cy=H/2;
+  let maxR=Math.max(W,H)*0.72;
+  for (let i=count;i>=0;i--){
+    let s=maxR*(i/count)*(0.9+rng(seed+i*3)*0.2*chaos);
+    let ox=chaos*(rng(seed+i*5)-0.5)*W*0.08;
+    let oy=chaos*(rng(seed+i*7)-0.5)*H*0.08;
+    let rot=chaos*(rng(seed+i*9)-0.5)*0.3;
+    ctx.save();ctx.translate(cx+ox,cy+oy);ctx.rotate(rot);
+    ctx.strokeStyle=pc(i);ctx.lineWidth=maxR*(0.012+rng(seed+i*11)*0.02);
+    ctx.strokeRect(-s,-s,s*2,s*2);
+    ctx.restore();
+  }
+}
+
+function patHearts() {
+  let cols=3+densityVal, rows=Math.ceil(cols*H/W*1.1), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let cx=c*cw+cw/2+chaos*(rng(seed+i*3)-0.5)*cw*0.3;
+    let cy=r*ch+ch/2+chaos*(rng(seed+i*7)-0.5)*ch*0.3;
+    let s=cw*(0.18+rng(seed+i*5)*0.2);
+    let rot=chaos*(rng(seed+i*9)-0.5)*0.5;
+    ctx.save();ctx.translate(cx,cy+s*0.3);ctx.rotate(rot);
+    ctx.beginPath();
+    ctx.moveTo(0,s*0.6);
+    ctx.bezierCurveTo(s*1.1,-s*0.3, s*0.5,-s*1.1, 0,-s*0.4);
+    ctx.bezierCurveTo(-s*0.5,-s*1.1, -s*1.1,-s*0.3, 0,s*0.6);
+    ctx.closePath();
+    if (rng(seed+i*13)>0.5){ctx.fillStyle=pc(i);ctx.fill();}
+    else{ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,s*0.1);ctx.stroke();}
+    ctx.restore();
+  }
+}
+
+function patArrows() {
+  let cols=4+densityVal, rows=Math.ceil(cols*H/W), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let cx=c*cw+cw/2, cy=r*ch+ch/2;
+    let sz=cw*0.32;
+    let rot=Math.floor(rng(seed+i*5)*4)*Math.PI/2 + chaos*(rng(seed+i*9)-0.5)*1.2;
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);
+    ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(3,sz*0.16);ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.beginPath();ctx.moveTo(-sz,0);ctx.lineTo(sz,0);
+    ctx.moveTo(sz,0);ctx.lineTo(sz*0.4,-sz*0.5);
+    ctx.moveTo(sz,0);ctx.lineTo(sz*0.4,sz*0.5);
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+function patPlaidDiag() { // tartan-like diagonal crosshatch with thick/thin
+  let count=5+densityVal*2, chaos=chaosVal/10;
+  let sp=Math.hypot(W,H)/count;
+  for (let pass=0;pass<2;pass++){
+    let ang=pass===0?Math.PI/4:-Math.PI/4;
+    for (let i=-count;i<count*2;i++){
+      let thick=sp*((i%3===0)?0.4:0.12)*(0.8+rng(seed+i*5+pass*99)*0.5);
+      let off=i*sp+chaos*(rng(seed+i*3+pass*50)-0.5)*sp*0.3;
+      ctx.save();ctx.translate(W/2,H/2);ctx.rotate(ang);
+      ctx.fillStyle=pc(i+pass*1000);
+      ctx.fillRect(-Math.hypot(W,H),off-thick/2,Math.hypot(W,H)*2,thick);
+      ctx.restore();
+    }
+  }
+}
+
+function patBubbles() { // organic packed circles, no overlap-ish (poisson-ish)
+  let attempts=40+densityVal*60, chaos=chaosVal/10;
+  let placed=[];
+  for (let i=0;i<attempts;i++){
+    let x=rng(seed+i*3)*W, y=rng(seed+i*7)*H;
+    let maxR=W*(0.02+rng(seed+i*5)*0.07);
+    let rad=maxR;
+    for (let p of placed){let d=Math.hypot(p.x-x,p.y-y);if(d-p.r<rad)rad=Math.min(rad,Math.max(W*0.012,d-p.r));}
+    if (rad<W*0.012) continue;
+    placed.push({x,y,r:rad});
+    ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);
+    if (rng(seed+i*13)>0.45){ctx.fillStyle=pc(i);ctx.fill();}
+    else{ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,rad*0.12);ctx.stroke();}
+  }
+}
+
+function patContour() { // topographic contour lines (layered noise circles)
+  let layers=4+densityVal, chaos=chaosVal/10;
+  let centers=[];
+  let nc=2+Math.floor(densityVal/3);
+  for (let k=0;k<nc;k++) centers.push({x:rng(seed+k*13)*W,y:rng(seed+k*29)*H});
+  for (let L=layers;L>=1;L--){
+    centers.forEach((ctr,k)=>{
+      let baseR=Math.min(W,H)*0.5*(L/layers);
+      ctx.beginPath();
+      let steps=60;
+      for (let s2=0;s2<=steps;s2++){
+        let ang=s2/steps*Math.PI*2;
+        let wobble=1+chaos*0.35*Math.sin(ang*3+k+L)+0.1*Math.sin(ang*7+L);
+        let x=ctr.x+Math.cos(ang)*baseR*wobble;
+        let y=ctr.y+Math.sin(ang)*baseR*wobble;
+        s2===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle=pc(L*7+k);ctx.lineWidth=Math.max(2,W*0.0025);ctx.stroke();
+    });
+  }
+}
+
+function patPills() { // rounded capsule shapes scattered
+  let cols=3+densityVal, rows=Math.ceil(cols*H/W), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let cx=c*cw+cw/2+chaos*(rng(seed+i*3)-0.5)*cw*0.3;
+    let cy=r*ch+ch/2+chaos*(rng(seed+i*7)-0.5)*ch*0.3;
+    let len=cw*(0.3+rng(seed+i*5)*0.4), th=cw*(0.12+rng(seed+i*9)*0.12);
+    let rot=rng(seed+i*11)*Math.PI;
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);
+    ctx.beginPath();
+    ctx.moveTo(-len/2,-th);ctx.lineTo(len/2,-th);
+    ctx.arc(len/2,0,th,-Math.PI/2,Math.PI/2);
+    ctx.lineTo(-len/2,th);
+    ctx.arc(-len/2,0,th,Math.PI/2,-Math.PI/2);
+    ctx.closePath();
+    if (rng(seed+i*13)>0.5){ctx.fillStyle=pc(i);ctx.fill();}
+    else{ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,th*0.3);ctx.stroke();}
+    ctx.restore();
+  }
+}
+
+function patSunburst() { // rays emanating from center
+  let rays=24+densityVal*8, chaos=chaosVal/10;
+  let cx=W/2, cy=H/2;
+  let maxR=Math.hypot(W,H);
+  for (let i=0;i<rays;i++){
+    let a0=i/rays*Math.PI*2+chaos*(rng(seed+i*3)-0.5)*0.1;
+    let width=(Math.PI*2/rays)*(0.35+rng(seed+i*5)*0.3);
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,maxR,a0,a0+width);
+    ctx.closePath();
+    ctx.fillStyle=pc(i, (0.04+rng(seed+i*7)*0.22)*(opacityVal/100));
+    ctx.fill();
+  }
+}
+
+function patMaze() { // random diagonal maze (truchet-ish lines)
+  let cols=5+densityVal*2, rows=Math.ceil(cols*H/W), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let x=c*cw, y=r*ch;
+    ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,cw*0.12);ctx.lineCap='round';
+    ctx.beginPath();
+    if (rng(seed+i*5)>0.5){ctx.moveTo(x,y);ctx.lineTo(x+cw,y+ch);}
+    else{ctx.moveTo(x+cw,y);ctx.lineTo(x,y+ch);}
+    ctx.stroke();
+  }
+}
+
+function patTruchetArcs() { // truchet tiles with quarter-circle arcs
+  let cols=4+densityVal*2, rows=Math.ceil(cols*H/W), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  let s=Math.min(cw,ch);
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let x=c*cw, y=r*ch;
+    ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,s*0.14);
+    ctx.beginPath();
+    if (rng(seed+i*5)>0.5){
+      ctx.arc(x,y,s/2,0,Math.PI/2);
+      ctx.moveTo(x+s,y+s);ctx.arc(x+s,y+s,s/2,Math.PI,Math.PI*1.5);
+    } else {
+      ctx.arc(x+s,y,s/2,Math.PI/2,Math.PI);
+      ctx.moveTo(x,y+s);ctx.arc(x,y+s,s/2,Math.PI*1.5,Math.PI*2);
+    }
+    ctx.stroke();
+  }
+}
+
+function patDotGradient() { // halftone with radial size gradient from center
+  let cols=8+densityVal*3, rows=Math.ceil(cols*H/W), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  let cx=W/2, cy=H/2, maxD=Math.hypot(W/2,H/2);
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let x=c*cw+cw/2, y=r*ch+ch/2;
+    let d=Math.hypot(x-cx,y-cy)/maxD;
+    let rad=cw*0.5*(1-d)*(0.7+rng(seed+i*5)*0.3*chaos+0.3);
+    if (rad<1) continue;
+    let ox=chaos*(rng(seed+i*3)-0.5)*cw*0.3;
+    let oy=chaos*(rng(seed+i*7)-0.5)*ch*0.3;
+    ctx.beginPath();ctx.arc(x+ox,y+oy,rad,0,Math.PI*2);
+    ctx.fillStyle=pc(i);ctx.fill();
+  }
+}
+
+function patFlowField() { // particle flow-field streaks
+  let n=30+densityVal*30, chaos=chaosVal/10;
+  for (let i=0;i<n;i++){
+    let x=rng(seed+i*3)*W, y=rng(seed+i*7)*H;
+    ctx.beginPath();ctx.moveTo(x,y);
+    let steps=20+Math.floor(rng(seed+i*5)*30);
+    for (let s2=0;s2<steps;s2++){
+      let ang=(Math.sin(x*0.004+y*0.003+i)+Math.cos(y*0.005-x*0.002))*Math.PI*(1+chaos);
+      x+=Math.cos(ang)*W*0.012;
+      y+=Math.sin(ang)*W*0.012;
+      ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(1.5,W*0.0018);ctx.stroke();
+  }
+}
+
+function patSpiralSingle() { // one big logarithmic spiral of dots
+  let turns=4+densityVal, chaos=chaosVal/10;
+  let cx=W/2, cy=H/2;
+  let maxR=Math.min(W,H)*0.52;
+  let n=turns*60;
+  for (let i=0;i<n;i++){
+    let frac=i/n;
+    let ang=frac*Math.PI*2*turns;
+    let rad=maxR*frac;
+    let x=cx+Math.cos(ang)*rad+chaos*(rng(seed+i)-0.5)*W*0.02;
+    let y=cy+Math.sin(ang)*rad+chaos*(rng(seed+i*3)-0.5)*W*0.02;
+    let dot=W*(0.004+frac*0.012);
+    ctx.beginPath();ctx.arc(x,y,dot,0,Math.PI*2);
+    ctx.fillStyle=pc(i);ctx.fill();
+  }
+}
+
+function patVoronoiCells() { // approximate voronoi via scattered cell outlines
+  let n=8+densityVal*4, chaos=chaosVal/10;
+  let sites=[];
+  for (let i=0;i<n;i++) sites.push({x:rng(seed+i*13)*W,y:rng(seed+i*29)*H});
+  // sample grid, draw boundaries where nearest site changes
+  let gs=Math.max(6,Math.floor(W/120));
+  for (let gx=0;gx<W;gx+=gs) for (let gy=0;gy<H;gy+=gs){
+    let best=-1,bd=1e9,best2=-1,bd2=1e9;
+    for (let k=0;k<n;k++){let d=(sites[k].x-gx)**2+(sites[k].y-gy)**2;if(d<bd){bd2=bd;best2=best;bd=d;best=k;}else if(d<bd2){bd2=d;best2=k;}}
+    if (Math.sqrt(bd2)-Math.sqrt(bd) < gs*1.2){
+      ctx.fillStyle=pc(best);ctx.fillRect(gx,gy,gs,gs);
+    }
+  }
+}
+
+function patChecker() { // checkerboard with jitter and gaps
+  let cols=4+densityVal, rows=Math.ceil(cols*H/W), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    if ((r+c)%2!==0 && rng(seed+r*c*3+r)>0.15) continue;
+    if ((r+c)%2===0 && rng(seed+r*c*7+c)<0.1) continue;
+    let i=r*cols+c;
+    let g=ch*0.06+chaos*rng(seed+i*5)*ch*0.15;
+    let rot=chaos*(rng(seed+i*9)-0.5)*0.3;
+    ctx.save();ctx.translate(c*cw+cw/2,r*ch+ch/2);ctx.rotate(rot);
+    ctx.fillStyle=pc(i);ctx.fillRect(-cw/2+g,-ch/2+g,cw-g*2,ch-g*2);
+    ctx.restore();
+  }
+}
+
+function patMoroccan() { // quatrefoil / moroccan trellis tiles
+  let cols=2+densityVal, rows=Math.ceil(cols*H/W*1.1), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows, s=Math.min(cw,ch)*0.42;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let cx=c*cw+cw/2, cy=r*ch+ch/2;
+    ctx.save();ctx.translate(cx,cy);
+    ctx.beginPath();
+    for (let k=0;k<4;k++){
+      let ang=k*Math.PI/2;
+      let lx=Math.cos(ang)*s*0.7, ly=Math.sin(ang)*s*0.7;
+      ctx.moveTo(lx+s*0.5,ly);
+      ctx.arc(lx,ly,s*0.5,0,Math.PI*2);
+    }
+    if (rng(seed+i*5)>0.5){ctx.fillStyle=pc(i);ctx.fill();}
+    else{ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(2,s*0.08);ctx.stroke();}
+    ctx.restore();
+  }
+}
+
+function patNoiseGrid() { // grid of squares with random opacity (data-mosaic)
+  let cols=10+densityVal*4, rows=Math.ceil(cols*H/W), chaos=chaosVal/10;
+  let cw=W/cols, ch=H/rows;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let v=rng(seed+i*5);
+    if (v<0.3) continue;
+    let g=cw*0.08;
+    ctx.fillStyle=pc(i, (0.1+v*0.6)*(opacityVal/100));
+    ctx.fillRect(c*cw+g,r*ch+g,cw-g*2,ch-g*2);
+  }
+}
+
+// ── ADDITIONAL RECURSIVE / FRACTAL PATTERNS ───────────────────────────────
+function recKoch() { // koch snowflake edges, tiled
+  let depth=Math.min(4,1+Math.floor(densityVal/3)), chaos=chaosVal/10;
+  function koch(x1,y1,x2,y2,d){
+    if (d<=0){ctx.lineTo(x2,y2);return;}
+    let dx=(x2-x1)/3, dy=(y2-y1)/3;
+    let xa=x1+dx, ya=y1+dy, xb=x1+2*dx, yb=y1+2*dy;
+    let ang=Math.atan2(y2-y1,x2-x1)-Math.PI/3;
+    let len=Math.hypot(dx,dy);
+    let xc=xa+Math.cos(ang)*len, yc=ya+Math.sin(ang)*len;
+    koch(x1,y1,xa,ya,d-1);koch(xa,ya,xc,yc,d-1);koch(xc,yc,xb,yb,d-1);koch(xb,yb,x2,y2,d-1);
+  }
+  let cols=Math.max(1,Math.floor(densityVal/2));
+  let cw=W/cols, ch=cw, rows=Math.ceil(H/ch)+1;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+    let i=r*cols+c;
+    let cx=c*cw+cw/2, cy=r*ch+ch/2;
+    let rad=cw*0.42;
+    ctx.beginPath();
+    let pts=[];
+    for (let k=0;k<3;k++){let a=-Math.PI/2+k*Math.PI*2/3;pts.push([cx+Math.cos(a)*rad,cy+Math.sin(a)*rad]);}
+    ctx.moveTo(pts[0][0],pts[0][1]);
+    koch(pts[0][0],pts[0][1],pts[1][0],pts[1][1],depth);
+    koch(pts[1][0],pts[1][1],pts[2][0],pts[2][1],depth);
+    koch(pts[2][0],pts[2][1],pts[0][0],pts[0][1],depth);
+    ctx.strokeStyle=pc(i);ctx.lineWidth=Math.max(1.5,W*0.0018);ctx.stroke();
+  }
+}
+
+function recPythagoras() { // pythagoras tree (recursive squares)
+  let depth=Math.min(9,4+densityVal), chaos=chaosVal/10;
+  function sq(x,y,len,ang,d){
+    if (d<=0||len<3) return;
+    let i2=(d*17+Math.floor(x/100))|0;
+    ctx.save();ctx.translate(x,y);ctx.rotate(ang);
+    ctx.fillStyle=pc(i2,((d/depth)*0.6+0.2)*(opacityVal/100));
+    ctx.fillRect(0,-len,len,len);
+    let lean=Math.PI/4+chaos*(rng(seed+i2*3)-0.5)*0.6;
+    let l1=len*Math.cos(lean), l2=len*Math.sin(lean);
+    // left child
+    ctx.translate(0,-len);
+    ctx.save();ctx.rotate(-lean);sq(0,0,l1,0,d-1);ctx.restore();
+    // right child
+    ctx.translate(len,0);
+    ctx.save();ctx.rotate(Math.PI/2-lean);sq(0,0,l2,0,d-1);ctx.restore();
+    ctx.restore();
+  }
+  let trees=1+Math.floor(densityVal/4);
+  let tw=W/trees;
+  for (let t=0;t<trees;t++){
+    let base=tw*0.18;
+    sq(t*tw+tw/2-base/2, H*0.82, base, 0, depth);
+  }
+}
+
+function recCircleFractal() { // apollonian-ish recursive circles
+  let depth=Math.min(5,2+Math.floor(densityVal/2)), chaos=chaosVal/10;
+  function circ(cx,cy,r,d){
+    if (d<=0||r<W*0.01) return;
+    let i2=(Math.floor(cx/100+cy/100+d*7))|0;
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+    if (rng(seed+i2*3)>0.5){ctx.fillStyle=pc(i2,(0.06+rng(seed+i2)*0.2)*(opacityVal/100));ctx.fill();}
+    else{ctx.strokeStyle=pc(i2);ctx.lineWidth=Math.max(1.5,r*0.04);ctx.stroke();}
+    let nr=r*(0.42+rng(seed+i2*5)*0.12);
+    let kids=3+Math.floor(rng(seed+i2*7)*2);
+    for (let k=0;k<kids;k++){
+      let a=k/kids*Math.PI*2+chaos*(rng(seed+i2*k*3)-0.5);
+      circ(cx+Math.cos(a)*(r-nr),cy+Math.sin(a)*(r-nr),nr,d-1);
+    }
+  }
+  let cols=Math.max(1,Math.floor(densityVal/3));
+  let cw=W/cols, ch=H/Math.ceil(cols*H/W);
+  let rows=Math.ceil(H/ch);
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++){
+    circ(c*cw+cw/2,r*ch+ch/2,Math.min(cw,ch)*0.45,depth);
+  }
+}
+
+function recDragon() { // dragon curve (L-system folded)
+  let iters=Math.min(13,7+densityVal), chaos=chaosVal/10;
+  let seq=[1];
+  for (let k=0;k<iters;k++){
+    let next=seq.slice();
+    next.push(1);
+    for (let j=seq.length-1;j>=0;j--) next.push(seq[j]?0:1);
+    seq=next;
+    if (seq.length>40000) break;
+  }
+  let x=W*0.35, y=H*0.5, dir=0;
+  let stepLen=Math.max(2,W/Math.sqrt(seq.length)*0.7);
+  ctx.beginPath();ctx.moveTo(x,y);
+  let minX=x,maxX=x,minY=y,maxY=y;
+  let path=[[x,y]];
+  for (let k=0;k<seq.length;k++){
+    dir+=seq[k]?Math.PI/2:-Math.PI/2;
+    x+=Math.cos(dir)*stepLen; y+=Math.sin(dir)*stepLen;
+    path.push([x,y]);
+    minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);
+  }
+  // recenter+scale to fit
+  let pw=maxX-minX, ph=maxY-minY;
+  let sc=Math.min(W*0.8/pw, H*0.8/ph);
+  let offx=W/2-((minX+maxX)/2)*sc, offy=H/2-((minY+maxY)/2)*sc;
+  ctx.beginPath();
+  path.forEach(([px,py],k)=>{let X=px*sc+offx,Y=py*sc+offy;k===0?ctx.moveTo(X,Y):ctx.lineTo(X,Y);});
+  ctx.strokeStyle=pc(0);ctx.lineWidth=Math.max(1.5,W*0.002);ctx.lineJoin='round';ctx.stroke();
+}
+
+function recTriangleSub() { // recursive triangle subdivision (not sierpinski - keeps center)
+  let depth=Math.min(5,2+Math.floor(densityVal/2)), chaos=chaosVal/10;
+  function tri(x1,y1,x2,y2,x3,y3,d){
+    let i2=(Math.floor((x1+x2+x3)/300+(y1+y2+y3)/300+d*11))|0;
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.lineTo(x3,y3);ctx.closePath();
+    ctx.strokeStyle=pc(i2);ctx.lineWidth=Math.max(1.5,W*0.0016*(d+1));ctx.stroke();
+    if (d<=0) return;
+    let m12=[(x1+x2)/2,(y1+y2)/2],m23=[(x2+x3)/2,(y2+y3)/2],m13=[(x1+x3)/2,(y1+y3)/2];
+    let j=chaos*W*0.01;
+    tri(x1,y1,m12[0]+ (rng(seed+i2*3)-0.5)*j,m12[1],m13[0],m13[1]+(rng(seed+i2*5)-0.5)*j,d-1);
+    tri(m12[0],m12[1],x2,y2,m23[0],m23[1],d-1);
+    tri(m13[0],m13[1],m23[0],m23[1],x3,y3,d-1);
+    tri(m12[0],m12[1],m23[0],m23[1],m13[0],m13[1],d-1);
+  }
+  let cols=Math.max(1,Math.floor(densityVal/3));
+  let cw=W/cols, ch=cw, rows=Math.ceil(H/ch)+1;
+  for (let r=0;r<rows;r++) for (let c=0;c<cols;c++){
+    let x=c*cw, y=r*ch;
+    tri(x,y+ch,x+cw,y+ch,x+cw/2,y,depth);
+  }
+}
+
+function recBranchRadial() { // radial recursive branching (snowflake-like)
+  let depth=Math.min(6,3+Math.floor(densityVal/2)), chaos=chaosVal/10;
+  let arms=6+Math.floor(densityVal/2);
+  let cx=W/2, cy=H/2;
+  function branch(x,y,len,ang,d){
+    if (d<=0||len<4) return;
+    let x2=x+Math.cos(ang)*len, y2=y+Math.sin(ang)*len;
+    let i2=(Math.floor(x/100+y/100+d*13))|0;
+    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x2,y2);
+    ctx.strokeStyle=pc(i2,((d/depth)*0.6+0.3)*(opacityVal/100));
+    ctx.lineWidth=Math.max(1,d*1.1);ctx.stroke();
+    let spread=Math.PI/4+chaos*(rng(seed+i2*3)-0.5)*0.5;
+    branch(x2,y2,len*0.62,ang-spread,d-1);
+    branch(x2,y2,len*0.62,ang+spread,d-1);
+  }
+  let baseLen=Math.min(W,H)*0.2;
+  for (let a=0;a<arms;a++){
+    branch(cx,cy,baseLen,a/arms*Math.PI*2,depth);
+  }
+}
+
+
 const PATTERNS = {
   grid_r: patGrid_r, halftone: patHalftone, lines: patLines,
   crosshatch: patCrosshatch, triangles: patTriangles, waves: patWaves,
   hexagons: patHexagons, circles: patCircles, diamonds: patDiamonds,
   zigzag: patZigzag, grid_squares: patGridSquares, polka: patPolka,
   chevrons: patChevrons,
+  scales: patScales, stars: patStars, plus: patPlus, brick: patBrick,
+  weave: patWeave, drops: patDrops, spray: patSpray, rings: patRings,
+  square_rings: patSquareRings, hearts: patHearts, arrows: patArrows,
+  plaid: patPlaidDiag, bubbles: patBubbles, contour: patContour,
+  pills: patPills, sunburst: patSunburst, maze: patMaze,
+  truchet: patTruchetArcs, dot_gradient: patDotGradient, flowfield: patFlowField,
+  spiral_single: patSpiralSingle, voronoi: patVoronoiCells, checker: patChecker,
+  moroccan: patMoroccan, noisegrid: patNoiseGrid,
   rec_sierpinski: recSierpinski, rec_cantor: recCantor, rec_h_tree: recHTree,
   rec_boxes: recNestedBoxes, rec_spirals: recSpirals, rec_tree: recTree,
   rec_greek: recGreekCross, rec_fern: recFernCells, rec_penrose: recPenrose,
-  rec_mondrian: recMondrian
+  rec_mondrian: recMondrian,
+  rec_koch: recKoch, rec_pythagoras: recPythagoras, rec_circles: recCircleFractal,
+  rec_dragon: recDragon, rec_trisub: recTriangleSub, rec_radial: recBranchRadial
 };
 
 // ── LOGO DRAWING ──────────────────────────────────────────────────────────
