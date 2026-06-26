@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>R2I2 — R2 Issue Images</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111111'/%3E%3Ctext x='2' y='28' font-family='Arial Black%2C Arial%2C sans-serif' font-weight='900' font-size='26' fill='%231da7d4'%3ER%3C/text%3E%3Ctext x='13' y='17' font-family='Arial Black%2C Arial%2C sans-serif' font-weight='900' font-size='11' fill='%23ffffff'%3ER%3C/text%3E%3Ctext x='13' y='29' font-family='Arial Black%2C Arial%2C sans-serif' font-weight='900' font-size='11' fill='%231da7d4'%3ER%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -298,6 +299,7 @@
         <label>Label position</label>
         <select id="volPos">
           <option value="bottom-center">Bottom center</option>
+          <option value="below-logo">Below logo</option>
           <option value="top-center">Top center</option>
           <option value="bottom-left">Bottom left</option>
           <option value="bottom-right">Bottom right</option>
@@ -372,7 +374,7 @@
     <div class="section">
       <div class="section-title">Color</div>
       <div class="field-group">
-        <label>Accent color</label>
+        <label>Accent color — pattern &amp; logo</label>
         <div class="color-row">
           <input type="color" id="colorPicker" value="#1da7d4">
           <div class="swatch" style="background:#1da7d4" data-c="#1da7d4" title="Sky blue"></div>
@@ -387,6 +389,15 @@
           <div class="swatch" style="background:#606c38" data-c="#606c38" title="Olive"></div>
           <div class="swatch" style="background:#ff6b35" data-c="#ff6b35" title="Orange"></div>
           <div class="swatch" style="background:#b5179e" data-c="#b5179e" title="Magenta"></div>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Logo highlight color <span style="font-size:10px;color:var(--muted)">(the blue in the R² logo)</span></label>
+        <div class="color-row">
+          <div class="swatch on" data-lc="accent" id="lcAccentSwatch" style="background:#1da7d4" title="Same as accent"></div>
+          <input type="color" id="logoColorPicker" value="#1da7d4" title="Custom logo color">
+          <div class="swatch" data-lc="custom" id="lcCustomSwatch" style="background:#1da7d4;border:1px solid #ccc" title="Custom"></div>
+          <span style="font-size:11px;color:var(--muted);align-self:center">or custom →</span>
         </div>
       </div>
       <div class="field-group">
@@ -409,8 +420,16 @@
     <div class="section">
       <div class="section-title">Export / Resolution</div>
       <div class="field-group">
+        <label>Canvas orientation</label>
+        <div class="three-col">
+          <button class="res-btn on" data-orient="portrait" style="text-align:center">▯<br>Portrait</button>
+          <button class="res-btn" data-orient="square" style="text-align:center">▪<br>Square</button>
+          <button class="res-btn" data-orient="landscape" style="text-align:center">▭<br>Landscape</button>
+        </div>
+      </div>
+      <div class="field-group">
         <label>OJS / Journal presets</label>
-        <div class="res-presets">
+        <div class="res-presets" id="resPresets">
           <button class="res-btn on" data-w="2100" data-h="2970">A4 print — 2100 × 2970 px (250 dpi)</button>
           <button class="res-btn" data-w="1748" data-h="2480">A4 72 dpi — 1748 × 2480 px</button>
           <button class="res-btn" data-w="800" data-h="1200">OJS default — 800 × 1200 px</button>
@@ -472,6 +491,9 @@ let volYear = new Date().getFullYear();
 let volPos = 'bottom-center';
 let volColor = 'auto';
 let volColorCustom = '#ffffff';
+let logoColorMode = 'accent';
+let logoColorCustom = '#1da7d4';
+let canvasOrientation = 'portrait';
 
 // ── CANVAS SETUP ───────────────────────────────────────────────────────────
 const cv = document.getElementById('cover');
@@ -1038,6 +1060,10 @@ function getImageRect() {
   return {x,y,w:iw,h:ih};
 }
 
+function getLogoColor() {
+  return logoColorMode === 'accent' ? accentColor : logoColorCustom;
+}
+
 function drawUploadedImage() {
   let {x,y,w,h} = getImageRect();
   let pad=W*0.015;
@@ -1056,7 +1082,7 @@ function drawDefaultLogo() {
   let pad=W*0.028;
   let bg = (getBg()==='#ffffff'||getBg()==='#fff')?'#ffffff':'#111111';
   let fg = bg==='#ffffff'?'#111111':'#ffffff';
-  let ac2 = accentColor;
+  let lc = getLogoColor();
   ctx.save();
   ctx.fillStyle=bg;
   ctx.fillRect(x-pad,y-pad,w+pad*2,h+pad*2);
@@ -1066,12 +1092,12 @@ function drawDefaultLogo() {
   let fs1=h*0.92, fs2=h*0.46;
   ctx.font=`900 ${fs1}px 'Barlow Condensed', 'Barlow', Arial, sans-serif`;
   ctx.textBaseline='bottom';
-  ctx.fillStyle=ac2;
+  ctx.fillStyle=lc;
   ctx.fillText('R',x+w*0.015,y+h*1.01);
   ctx.fillStyle=fg;
   ctx.font=`900 ${fs2}px 'Barlow Condensed', 'Barlow', Arial, sans-serif`;
   ctx.fillText('REPLICATION',x+w*0.195,y+h*0.52);
-  ctx.fillStyle=ac2;
+  ctx.fillStyle=lc;
   ctx.fillText('RESEARCH',x+w*0.195,y+h*1.01);
   ctx.restore();
 }
@@ -1094,6 +1120,12 @@ function drawVolumeLabel() {
     case 'top-right':     px = W - margin; py = margin; break;
     case 'bottom-left':   px = margin;     py = H - margin; break;
     case 'bottom-right':  px = W - margin; py = H - margin; break;
+    case 'below-logo': {
+      let imgR = getImageRect();
+      px = imgR.x + imgR.w / 2;
+      py = imgR.y + imgR.h + fs * 1.1;
+      break;
+    }
     default:              px = W/2;        py = H - margin; break;
   }
   let isLeft  = volPos.endsWith('left');
@@ -1270,6 +1302,8 @@ document.getElementById('colorPicker').addEventListener('input',e=>{
   document.getElementById('bgColorSwatch').style.background=accentColor;
   document.getElementById('ibColorSwatch').style.background=accentColor;
   document.getElementById('vcAccentSwatch').style.background=accentColor;
+  document.getElementById('lcAccentSwatch').style.background=accentColor;
+  if (logoColorMode==='accent') document.getElementById('logoColorPicker').value=accentColor;
   document.querySelectorAll('.swatch[data-c]').forEach(s=>s.classList.remove('on'));
   draw();
 });
@@ -1282,6 +1316,8 @@ document.querySelectorAll('.swatch[data-c]').forEach(sw=>{
     document.getElementById('bgColorSwatch').style.background=accentColor;
     document.getElementById('ibColorSwatch').style.background=accentColor;
     document.getElementById('vcAccentSwatch').style.background=accentColor;
+    document.getElementById('lcAccentSwatch').style.background=accentColor;
+    if (logoColorMode==='accent') document.getElementById('logoColorPicker').value=accentColor;
     draw();
   });
 });
@@ -1309,15 +1345,77 @@ document.getElementById('opacity').addEventListener('input',e=>{
   draw();
 });
 
-// Resolution presets
-document.querySelectorAll('.res-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.res-btn').forEach(b=>b.classList.remove('on'));
-    btn.classList.add('on');
-    let w=+btn.dataset.w, h=+btn.dataset.h;
-    document.getElementById('resW').value=w;
-    document.getElementById('resH').value=h;
-    setResolution(w,h);
+// Orientation presets
+const ORIENT_PRESETS = {
+  portrait:  { label: 'A4 print — 2100 × 2970 px (250 dpi)', presets: [
+    {w:2100,h:2970,l:'A4 print — 2100 × 2970 px (250 dpi)'},
+    {w:1748,h:2480,l:'A4 72 dpi — 1748 × 2480 px'},
+    {w:800, h:1200,l:'OJS default — 800 × 1200 px'},
+    {w:500, h:700, l:'OJS thumbnail — 500 × 700 px'},
+    {w:1240,h:1754,l:'A4 150 dpi — 1240 × 1754 px'},
+    {w:3508,h:4961,l:'A4 300 dpi — 3508 × 4961 px'},
+  ]},
+  square: { presets: [
+    {w:1200,h:1200,l:'Square — 1200 × 1200 px'},
+    {w:800, h:800, l:'Square small — 800 × 800 px'},
+    {w:2000,h:2000,l:'Square large — 2000 × 2000 px'},
+    {w:500, h:500, l:'Square thumb — 500 × 500 px'},
+  ]},
+  landscape: { presets: [
+    {w:1200,h:800, l:'Landscape — 1200 × 800 px'},
+    {w:1920,h:1080,l:'Landscape HD — 1920 × 1080 px'},
+    {w:2480,h:1748,l:'A4 landscape — 2480 × 1748 px'},
+    {w:1600,h:900, l:'Landscape 16:9 — 1600 × 900 px'},
+  ]}
+};
+
+function applyOrientation(orient) {
+  canvasOrientation = orient;
+  document.querySelectorAll('[data-orient]').forEach(b=>b.classList.remove('on'));
+  document.querySelector(`[data-orient="${orient}"]`).classList.add('on');
+  const presets = ORIENT_PRESETS[orient].presets;
+  const container = document.getElementById('resPresets');
+  container.innerHTML = presets.map((p,i)=>
+    `<button class="res-btn${i===0?' on':''}" data-w="${p.w}" data-h="${p.h}">${p.l}</button>`
+  ).join('');
+  container.querySelectorAll('.res-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      container.querySelectorAll('.res-btn').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      let w=+btn.dataset.w, h=+btn.dataset.h;
+      document.getElementById('resW').value=w;
+      document.getElementById('resH').value=h;
+      setResolution(w,h);
+    });
+  });
+  let first = presets[0];
+  document.getElementById('resW').value=first.w;
+  document.getElementById('resH').value=first.h;
+  setResolution(first.w, first.h);
+}
+
+document.querySelectorAll('[data-orient]').forEach(btn=>{
+  btn.addEventListener('click',()=>applyOrientation(btn.dataset.orient));
+});
+
+// Logo color wiring
+document.getElementById('logoColorPicker').addEventListener('input',e=>{
+  logoColorCustom=e.target.value;
+  document.getElementById('lcCustomSwatch').style.background=logoColorCustom;
+  logoColorMode='custom';
+  document.querySelectorAll('.swatch[data-lc]').forEach(s=>s.classList.remove('on'));
+  document.getElementById('lcCustomSwatch').classList.add('on');
+  draw();
+});
+document.querySelectorAll('.swatch[data-lc]').forEach(sw=>{
+  sw.addEventListener('click',()=>{
+    document.querySelectorAll('.swatch[data-lc]').forEach(s=>s.classList.remove('on'));
+    sw.classList.add('on');
+    logoColorMode=sw.dataset.lc;
+    if (logoColorMode==='accent') {
+      document.getElementById('logoColorPicker').value=accentColor;
+    }
+    draw();
   });
 });
 document.getElementById('applyRes').addEventListener('click',()=>{
@@ -1337,7 +1435,7 @@ document.getElementById('exportBtn').addEventListener('click',()=>{
 
 // Init — set year field to current year and auto-load default journal logo
 document.getElementById('volYear').value = volYear;
-setResolution(2100,2970);
+applyOrientation('portrait');
 
 (function loadDefaultLogo() {
   let img = new Image();
