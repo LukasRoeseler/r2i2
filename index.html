@@ -1076,6 +1076,70 @@ function drawDefaultLogo() {
   ctx.restore();
 }
 
+// ── VOLUME LABEL ──────────────────────────────────────────────────────────
+function drawVolumeLabel() {
+  let text = 'Volume ' + volNum + '  |  ' + volYear;
+  let fs = W * 0.038;
+  ctx.save();
+  ctx.font = `700 ${fs}px 'Barlow Condensed', 'Barlow', Arial, sans-serif`;
+  ctx.textBaseline = 'middle';
+  let metrics = ctx.measureText(text);
+  let tw = metrics.width;
+  let th = fs * 1.1;
+  let margin = W * 0.06;
+  let px, py;
+  switch(volPos) {
+    case 'top-center':    px = W/2;        py = margin; break;
+    case 'top-left':      px = margin;     py = margin; break;
+    case 'top-right':     px = W - margin; py = margin; break;
+    case 'bottom-left':   px = margin;     py = H - margin; break;
+    case 'bottom-right':  px = W - margin; py = H - margin; break;
+    default:              px = W/2;        py = H - margin; break;
+  }
+  let isLeft  = volPos.endsWith('left');
+  let isRight = volPos.endsWith('right');
+  ctx.textAlign = isLeft ? 'left' : isRight ? 'right' : 'center';
+
+  // pill background
+  let pillPad = fs * 0.55;
+  let pillW = tw + pillPad * 2;
+  let pillH = th + pillPad * 0.9;
+  let pillX = isLeft ? px - pillPad : isRight ? px - tw - pillPad : px - pillW/2;
+  let pillY = py - pillH/2;
+  let pillR = pillH / 2;
+
+  // resolve text color
+  let tc;
+  if (volColor === 'auto') {
+    let bg2 = getBg();
+    let isDark = bg2 === '#111111' || (bg2 !== '#ffffff' && bg2 !== '#fff');
+    tc = isDark ? '#ffffff' : '#111111';
+  } else if (volColor === 'white') { tc = '#ffffff'; }
+  else if (volColor === 'black')   { tc = '#111111'; }
+  else if (volColor === 'accent')  { tc = accentColor; }
+  else { tc = volColorCustom; }
+
+  // semi-transparent pill bg for legibility
+  let pillBg = tc === '#ffffff' ? 'rgba(0,0,0,0.38)' : 'rgba(255,255,255,0.38)';
+  ctx.beginPath();
+  ctx.moveTo(pillX + pillR, pillY);
+  ctx.lineTo(pillX + pillW - pillR, pillY);
+  ctx.arcTo(pillX + pillW, pillY, pillX + pillW, pillY + pillH, pillR);
+  ctx.lineTo(pillX + pillW, pillY + pillH - pillR);
+  ctx.arcTo(pillX + pillW, pillY + pillH, pillX + pillW - pillR, pillY + pillH, pillR);
+  ctx.lineTo(pillX + pillR, pillY + pillH);
+  ctx.arcTo(pillX, pillY + pillH, pillX, pillY + pillH - pillR, pillR);
+  ctx.lineTo(pillX, pillY + pillR);
+  ctx.arcTo(pillX, pillY, pillX + pillR, pillY, pillR);
+  ctx.closePath();
+  ctx.fillStyle = pillBg;
+  ctx.fill();
+
+  ctx.fillStyle = tc;
+  ctx.fillText(text, px, py);
+  ctx.restore();
+}
+
 function getBg() {
   if (bgMode==='white') return '#ffffff';
   if (bgMode==='black') return '#111111';
@@ -1090,6 +1154,7 @@ function draw() {
   ctx.fillRect(0,0,W,H);
   if (PATTERNS[patternType]) PATTERNS[patternType]();
   drawLogo();
+  drawVolumeLabel();
   ctx.strokeStyle='rgba(0,0,0,0.25)';
   ctx.lineWidth=Math.max(2,W*0.002);
   ctx.strokeRect(0,0,W,H);
@@ -1117,9 +1182,8 @@ function loadImage(file) {
   let img=new Image();
   img.onload=()=>{
     uploadedImage=img;
-    uploadZone.innerHTML='<strong>'+file.name+'</strong>'+Math.round(img.width)+'×'+Math.round(img.height);
+    uploadZone.innerHTML='<strong>'+file.name+'</strong>'+Math.round(img.width)+'×'+Math.round(img.height)+' — click to replace';
     uploadZone.classList.add('has-image');
-    imgControls.style.display='flex';
     draw();
   };
   img.src=URL.createObjectURL(file);
@@ -1129,7 +1193,27 @@ document.getElementById('clearImg').addEventListener('click',()=>{
   uploadedImage=null; fileInput.value='';
   uploadZone.innerHTML='<strong>Click or drop image</strong>PNG, JPG, SVG, WEBP';
   uploadZone.classList.remove('has-image');
-  imgControls.style.display='none';
+  draw();
+});
+
+// Volume/year wiring
+document.getElementById('volNum').addEventListener('input',e=>{ volNum=Math.max(1,+e.target.value||1); draw(); });
+document.getElementById('volYear').addEventListener('input',e=>{ volYear=+e.target.value||new Date().getFullYear(); draw(); });
+document.getElementById('volPos').addEventListener('change',e=>{ volPos=e.target.value; draw(); });
+document.querySelectorAll('.swatch[data-vc]').forEach(sw=>{
+  sw.addEventListener('click',()=>{
+    document.querySelectorAll('.swatch[data-vc]').forEach(s=>s.classList.remove('on'));
+    sw.classList.add('on');
+    volColor=sw.dataset.vc;
+    draw();
+  });
+});
+document.getElementById('vcCustom').addEventListener('input',e=>{
+  volColorCustom=e.target.value;
+  document.getElementById('vcCustomSwatch').style.background=volColorCustom;
+  volColor='custom';
+  document.querySelectorAll('.swatch[data-vc]').forEach(s=>s.classList.remove('on'));
+  document.getElementById('vcCustomSwatch').classList.add('on');
   draw();
 });
 
@@ -1185,6 +1269,7 @@ document.getElementById('colorPicker').addEventListener('input',e=>{
   accentColor=e.target.value;
   document.getElementById('bgColorSwatch').style.background=accentColor;
   document.getElementById('ibColorSwatch').style.background=accentColor;
+  document.getElementById('vcAccentSwatch').style.background=accentColor;
   document.querySelectorAll('.swatch[data-c]').forEach(s=>s.classList.remove('on'));
   draw();
 });
@@ -1196,6 +1281,7 @@ document.querySelectorAll('.swatch[data-c]').forEach(sw=>{
     document.getElementById('colorPicker').value=accentColor;
     document.getElementById('bgColorSwatch').style.background=accentColor;
     document.getElementById('ibColorSwatch').style.background=accentColor;
+    document.getElementById('vcAccentSwatch').style.background=accentColor;
     draw();
   });
 });
@@ -1249,8 +1335,27 @@ document.getElementById('exportBtn').addEventListener('click',()=>{
   link.click();
 });
 
-// Init
+// Init — set year field to current year and auto-load default journal logo
+document.getElementById('volYear').value = volYear;
 setResolution(2100,2970);
+
+(function loadDefaultLogo() {
+  let img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    uploadedImage = img;
+    uploadZone.innerHTML = '<strong>pageHeaderLogoImage_en_US.png</strong>Loaded from ejournals.uni-muenster.de — click to replace';
+    uploadZone.classList.add('has-image');
+    draw();
+  };
+  img.onerror = () => {
+    // silently fall back to drawn logo if CORS blocks the fetch
+    uploadZone.innerHTML = '<strong>Click or drop image</strong>PNG, JPG, SVG, WEBP';
+    uploadZone.classList.remove('has-image');
+    draw();
+  };
+  img.src = 'https://ejournals.uni-muenster.de/public/journals/36/pageHeaderLogoImage_en_US.png';
+})();
 </script>
 </body>
 </html>
